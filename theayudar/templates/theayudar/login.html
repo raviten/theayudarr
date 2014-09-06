@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link href="{{ STATIC_URL }}css/main.css" rel="stylesheet">
+<title>The Ayudar : Help NGO in your free time</title>
+<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand">Ayudar</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="../index/">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="../upcomingevents/">Upcoming Events</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a>signin/signup</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+	<div class="wrapper" id="wrapper">
+		<div class="container center-block">
+			<div style="max-width:500px; margin:0 auto;">
+				<form class="form-inline" action="." method="post" role="form" >
+					{% csrf_token %}
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputEmail2">Email address</label>
+						<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="Email" value={{email}}>
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="exampleInputPassword2">Password</label>
+						<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name="Passwd">
+					</div>
+					<button type="submit" class="btn btn-default" name="signIn">Sign in</button>
+				</form>
+					<br>
+					<div class="alert {{errorType_signin}}" role="alert" id="error_signin">
+						<p>
+							{{error_signin}}
+						</p>
+					</div>
+				
+					
+			</div>
+		</div>
+		
+		
+		
+		
+		<div>
+			<div class="container" style="max-width:700px; margin:0 auto;">
+				<form class="form-vertical" action="." method="post" role="form">
+					{% csrf_token %}
+					<div class="form-group">
+						<label for="signupEmail" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="signupEmail" placeholder="Email" name="email" value={{signupemail}}>
+						</div>
+					<div class="form-group">
+						<label for="fName" class="col-sm-2 control-label">First Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="fName" placeholder="First Name" name="f_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="lName" class="col-sm-2 control-label">Last Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="lName" placeholder="Last Name" name="l_name">
+						</div>
+					</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword1" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="inputPassword1" placeholder="Password" name="s_password">
+						</div>
+						
+					</div>
+					<div class="form-group">
+						<label for="inputPassword2" class="col-sm-2 control-label">Re-Type Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="inputPassword2" placeholder="Re enter password" name="sv_password">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-default" name="signUp">Sign up</button>
+							<button type="submit" class="btn btn-default" name="signUp">Google</button>
+							<button type="submit" class="btn btn-default" name="signUp">Facebook</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="container">
+			<div class="alert {{errorType_signup}}" role="alert" id="error_signup">
+				<p {%if error_signup%}class='bg-danger'{%endif%}>
+					{{error_signup}}
+					
+					<br>
+				</p>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="bs-docs-footer" role="contentinfo">
+		<div class="container">
+			<ul class="bs-docs-footer-links muted">
+			  <li>2014</li>
+			  <li></li>
+			  <li><a href="mailto:ismteja@gmail.com?subject=Application for team member&body=why me?">Join Ayudar</a></li>
+			  <li></li>
+			  <li><a href="mailto:ismteja@gmail.com?subject=NGO Name &body=Details of contact person">Register NGO</a></li>		  
+			</ul>
+		</div>
+	</footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	
+		$( document ).ready(function() {
+		$('form.form-inline').on('submit',function(){
+			if($('#exampleInputPassword2').val().length<1)
+			{
+					$('#error_signin').html("<p>please enter password</p>");
+				$('#error_signin').addClass("alert-warning");
+				return false;
+			}
+		return true;
+		});
+		function validateEmail($email) 
+		{
+			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		    if( !emailReg.test( $email ) ) {
+				return false;
+			} else {
+				return true;
+			}
+		
+		}
+		function validatePassword($password) 
+		{
+			var passwordReg = /^[a-z0-9]+$/i;
+		    if( passwordReg.test( $password )&&$password.length>=8 &&  $password.length<=14) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		$('#signupEmail').blur(function()
+			{	
+				var emailS = $('#signupEmail').val();
+				if(validateEmail(emailS))
+				{
+					$( "#error_signup" ).html("");
+				}
+				else
+				{				
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter a valid email</p>" );
+				}
+				
+			})
+		$('#fName').blur(function()
+			{	
+				if($('#fName').val().length<3)
+				{
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter atleast 3 letters for first name</p>" );
+				}
+				else
+				{				
+					$( "#error_signup" ).html( "" );
+				}
+				
+			})	
+		$('#lName').blur(function()
+			{	
+				if($('#lName').val().length<2)
+				{
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter atleast 3 letters last name</p>" );
+				}
+				else
+				{				
+					$( "#error_signup" ).html( "" );
+				}
+				
+			})	
+		$('#inputPassword1').focus(function(){
+			$( "#error_signup" ).html( "<p class='bg-info'>password must be of length 8 and contain only characters and numericals...</p>" );
+			})
+		$('#inputPassword1').blur(function()
+			{	
+				var password = $('#inputPassword1').val();
+				if(validatePassword(password))
+				{
+					$( "#error_signup" ).html( "" );
+				}
+				else
+				{				
+				$( "#error_signup" ).html( "<p class='bg-danger'>password must be of length 8 and contain only characters and numericals...</p>" );
+				return false;
+				}
+				
+			})
+				
+		$('#inputPassword2').blur(function(){
+			if($('#inputPassword2').val()==$('#inputPassword1').val())
+			{
+				$( "#error_signup" ).html("" );
+			}
+			})
+		$('form.form-vertical').on('submit',function(){
+			var emailS = $('#signupEmail').val();
+			//validate email
+			if(validateEmail(emailS))
+				{
+					$( "#error_signup" ).html( "" );
+				}
+			else
+				{				
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter a valid email</p>" );
+				return false;
+				}
+			//validate first name
+			if($('#fName').val().length<2)
+				{
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter atleast 3 letters for first name</p>" );
+				return false;
+				}
+			else
+				{				
+				$( "#error_signup" ).html( "" );
+				}
+				//validate last name
+				if($('#lName').val().length<2)
+				{
+				$( "#error_signup" ).html( "<p class='bg-danger'>enter atleast 3 letters last name</p>" );
+				}
+				else
+				{				
+					$( "#error_signup" ).html( "" );
+				}
+				
+			if(!validatePassword($('#inputPassword1').val()))
+			{
+				$('#error_signup').html("<p class='bg-danger'>please enter password atleast 8 characters with numbers and digits only</p>");
+				return false;
+			}
+			if($('#inputPassword1').val()!=$('#inputPassword2').val())
+			{
+				$('#error_signup').html("<p>passwords doesn't match</p>");
+				$('#error_signup').addClass("alert-warning");
+				return false;
+			}else
+			{
+				$( "#error_signup" ).html( "" );
+			}
+		return true;
+		});
+		});
+	</script>
+  </body>
+</html>
+
+  

@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link href="{{ STATIC_URL }}css/main.css" rel="stylesheet">
+<title>The Ayudar : Help NGO in your free time</title>
+<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand">Ayudar</a>
+			</div>		
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="../index/">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li class="active"><a>Upcoming Events</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="../login/">signin/signup</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+	
+	<div class="wrapper" id="wrapper">
+		<div class="container">
+			{% for ev in events %}
+				<div class="jumbotron">
+					<h1>{{ev.initiatedngo}}</h1>
+					<h2>{{ev.name}}</h2>
+					<h2>{{ev.location}}</h2>
+					<p>{{ev.datetime}}</p>
+					<p>{{ev.description}}</p>
+					<p>
+					  <a class="btn btn-lg btn-primary" href="../registertevent?eid={{ev.event_id}}" target="_blank" role="button ">Join &raquo;</a>
+					  <a class="btn btn-lg btn-primary" href="../events/{{ev.event_id}}" target="_blank" role="button ">Read more &raquo;</a>
+					</p>
+				</div>
+			{% endfor %}    
+		</div> <!-- /container -->
+	</div>
+	
+	<footer class="bs-docs-footer" role="contentinfo">
+		<div class="container">
+			<ul class="bs-docs-footer-links muted">
+			  <li>2014</li>
+			  <li></li>
+			  <li><a href="mailto:ismteja@gmail.com?subject=Application for team member&body=why me?">Join Ayudar</a></li>
+			  <li></li>
+			  <li><a href="mailto:ismteja@gmail.com?subject=NGO Name &body=Details of contact person">Register NGO</a></li>		  
+			</ul>
+		</div>
+	</footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+  
